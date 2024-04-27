@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "eel7514"
+version = "0.1.0"
+description = "Content related to the class EEL7514"
+authors = ["Matheus Tosta <me@mtosta.dev>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.26.4"
+scikit-learn = "^1.4.1.post1"
+matplotlib = "^3.8.3"
+tensorflow = "^2.16.1"
+pydantic = "^2.6.4"
+pandas = "^2.2.1"
+seaborn = "^0.13.2"
+ipywidgets = "^8.1.2"
+wordcloud = "^1.9.3"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.9.0"
+ipykernel = "^6.29.4"
+ruff = "^0.4.2"
+
+[tool.mypy]
+plugins = [
+    "sqlalchemy.ext.mypy.plugin",
+    "strawberry.ext.mypy_plugin",
+    "pydantic.mypy"
+]
+follow_imports = "silent"
+ignore_missing_imports = true
+namespace_packages = true
+
+[[tool.mypy.overrides]]
+module = [
+    "uvicorn",
+    "asyncpg.*",
+    "toml",
+    "sqlalchemy",
+    "strawberry"
+]
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+[tool.ruff]
+line-length = 110
+select = ["E", "W", "F", "C", "N", "D", "I001", "I"]
+ignore = ["D213", "D211", "D203", "C408"]
+extend-exclude = ["__pycache__", "*.egg_info", "__init__.py"]
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
